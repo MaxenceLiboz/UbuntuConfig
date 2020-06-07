@@ -26,37 +26,34 @@ set smartcase
 "----------------------Mapping------------------------------
 
 "Disable arrow keys to improve (not insert mode)
-"noremap <Down> <Nop>
-"noremap <Left> <Nop>
-"noremap <Right> <Nop>
-"noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
+noremap <Up> <Nop>
 
 "change tab
-nnoremap ; <C-w>h 
-nnoremap ' <C-w>l 
+nnoremap <C-h> <C-w>h 
+nnoremap <C-l> <C-w>l 
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k 
 
-"change moving block
-nnoremap [ {
-nnoremap ] }
+"NerdTree Options
+nmap <C-f> :NERDTreeToggle<CR>
+"Open auto
+autocmd VimEnter * NERDTree
+"Close auto
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"See the hiden file
+let NERDTreeShowHidden=1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+"See icons
+set encoding=UTF-8
 
-"netrw option
-nnoremap nt :Lexplore<CR> :vertical resize -50<CR>
-let g:netrw_liststyle = 3
-let g:netrw_banner = 0
-let g:netrw_browse_split = 4
-
-"autoclosing
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-
-"------------------------------------------------------------
+"---------------------Gruvbox---------------------------------
 
 "Gruvbox theme
-autocmd vimenter * colorscheme gruvbox
-set bg=dark
+autocmd vimenter * colorscheme gruvbox 
+set background=dark
 "Disable Yellow background
 if &term =~ '256color'
 	set t_ut=
@@ -64,11 +61,19 @@ endif
 
 "------------------------Coc-Config--------------------------
 " make sur to install :CocInstall coc-json coc-tsserver
+" coc-pairs = autoclose
+" coc-snippets = add autocomplition
+
 let g:coc_global_extensions = [
  \ 'coc-tsserver',
  \ 'coc-json',
  \ 'coc-pairs',
  \ 'coc-snippets',
+ \ 'coc-python',
+ \ 'coc-java',
+ \ 'coc-html',
+ \ 'coc-css',
+ \ 'coc-clangd',
  \ ]
 
  inoremap <expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>
@@ -232,5 +237,9 @@ Plug 'morhetz/gruvbox'
 
 "Autocompletion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"Nerdtree
+Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
